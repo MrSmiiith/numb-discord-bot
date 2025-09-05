@@ -29,7 +29,7 @@ module.exports = {
                 const expiredTimestamp = Math.round(expirationTime / 1000);
                 return interaction.reply({
                     content: `Please wait, you are on a cooldown for \`${command.data.name}\`. You can use it again <t:${expiredTimestamp}:R>.`,
-                    ephemeral: true
+                    flags: ['Ephemeral']
                 });
             }
         }
@@ -40,18 +40,24 @@ module.exports = {
         try {
             await command.execute(interaction);
         } catch (error) {
-            console.error(`Error executing ${interaction.commandName}`);
-            console.error(error);
+            console.error(`Error executing ${interaction.commandName}:`, error);
 
             const errorMessage = {
                 content: 'There was an error while executing this command!',
-                ephemeral: true
+                flags: ['Ephemeral']
             };
 
-            if (interaction.replied || interaction.deferred) {
-                await interaction.followUp(errorMessage);
-            } else {
-                await interaction.reply(errorMessage);
+            try {
+                if (interaction.replied) {
+                    await interaction.followUp(errorMessage);
+                } else if (interaction.deferred) {
+                    await interaction.editReply(errorMessage);
+                } else {
+                    await interaction.reply(errorMessage);
+                }
+            } catch (responseError) {
+                console.error('Failed to send error response:', responseError);
+                // Don't try to respond again, just log the error
             }
         }
     },

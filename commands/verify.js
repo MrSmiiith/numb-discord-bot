@@ -1,5 +1,6 @@
 const { SlashCommandBuilder, PermissionFlagsBits, ActionRowBuilder, StringSelectMenuBuilder, EmbedBuilder } = require('discord.js');
 const { logEvent } = require('../utils/logger');
+const config = require('../config');
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -28,14 +29,14 @@ module.exports = {
             return interaction.reply({ content: 'User not found!', ephemeral: true });
         }
 
-        const unverifiedRole = interaction.guild.roles.cache.get(process.env.UNVERIFIED_ROLE_ID);
-        const verifiedRole = interaction.guild.roles.cache.get(process.env.VERIFIED_ROLE_ID);
-        const boyRole = interaction.guild.roles.cache.get(process.env.BOY_ROLE_ID);
-        const girlRole = interaction.guild.roles.cache.get(process.env.GIRL_ROLE_ID);
+        const unverifiedRole = interaction.guild.roles.cache.get(config.roles.verification.unverified);
+        const verifiedRole = interaction.guild.roles.cache.get(config.roles.verification.verified);
+        const boyRole = interaction.guild.roles.cache.get(config.roles.gender.boy);
+        const girlRole = interaction.guild.roles.cache.get(config.roles.gender.girl);
 
         if (!unverifiedRole || !verifiedRole || !boyRole || !girlRole) {
             return interaction.reply({
-                content: 'Verification roles not properly configured! Please check .env file.',
+                content: 'Verification roles not properly configured! Please check config.js file.',
                 ephemeral: true
             });
         }

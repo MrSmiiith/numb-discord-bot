@@ -6,6 +6,18 @@ const { initDatabase } = require('./database/init');
 const { logEvent } = require('./utils/logger');
 const ConsoleUI = require('./utils/consoleUI');
 
+// Prevent bot crashes from unhandled errors
+process.on('uncaughtException', (error) => {
+    console.error('🚨 Uncaught Exception:', error);
+    console.error('Stack:', error.stack);
+    // Don't exit the process, just log the error
+});
+
+process.on('unhandledRejection', (reason, promise) => {
+    console.error('🚨 Unhandled Rejection at:', promise, 'reason:', reason);
+    // Don't exit the process, just log the error
+});
+
 const ui = new ConsoleUI();
 ui.displayBanner();
 

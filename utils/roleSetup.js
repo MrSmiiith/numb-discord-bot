@@ -1,7 +1,8 @@
 const { PermissionFlagsBits } = require('discord.js');
+const config = require('../config');
 
 async function setupMutedRole(guild) {
-    let mutedRole = guild.roles.cache.get(process.env.MUTED_ROLE_ID);
+    let mutedRole = guild.roles.cache.get(config.roles.moderation.muted);
 
     if (!mutedRole) {
         try {
@@ -42,13 +43,13 @@ async function setupMutedRole(guild) {
 
 async function verifyRoles(guild) {
     const requiredRoles = {
-        UNVERIFIED_ROLE_ID: process.env.UNVERIFIED_ROLE_ID,
-        VERIFIED_ROLE_ID: process.env.VERIFIED_ROLE_ID,
-        BOY_ROLE_ID: process.env.BOY_ROLE_ID,
-        GIRL_ROLE_ID: process.env.GIRL_ROLE_ID,
-        MUTED_ROLE_ID: process.env.MUTED_ROLE_ID,
-        ADMIN_ROLE_ID: process.env.ADMIN_ROLE_ID,
-        STAFF_ROLE_ID: process.env.STAFF_ROLE_ID
+        UNVERIFIED_ROLE_ID: config.roles.verification.unverified,
+        VERIFIED_ROLE_ID: config.roles.verification.verified,
+        BOY_ROLE_ID: config.roles.gender.boy,
+        GIRL_ROLE_ID: config.roles.gender.girl,
+        MUTED_ROLE_ID: config.roles.moderation.muted,
+        ADMIN_ROLE_ID: config.roles.staff.admin,
+        STAFF_ROLE_ID: config.roles.staff.moderator
     };
 
     const missingRoles = [];
@@ -61,7 +62,7 @@ async function verifyRoles(guild) {
 
     if (missingRoles.length > 0) {
         console.warn(`Missing roles in ${guild.name}: ${missingRoles.join(', ')}`);
-        console.warn('Please update your .env file with the correct role IDs');
+        console.warn('Please update your config.js file with the correct role IDs');
     }
 
     return missingRoles.length === 0;

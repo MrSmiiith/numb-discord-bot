@@ -1,23 +1,20 @@
 const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
-const { getBranding } = require('../utils/branding');
 
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('features')
-        .setDescription('View NUMB SYSTEM capabilities'),
-    
+        .setDescription('Display all NUMB SYSTEM features'),
+
     async execute(interaction) {
-        const branding = getBranding();
-        
         const embed = new EmbedBuilder()
-            .setColor('#000000') // NUMB SYSTEM black theme
-            .setTitle(`⚡ NUMB SYSTEM - Feature Matrix`)
-            .setDescription('**Silent. Efficient. Unstoppable.**\n\nComplete server control infrastructure at your command.')
+            .setColor('#000000')
+            .setTitle('⚡ NUMB SYSTEM - Complete Feature Overview')
+            .setDescription('**Feel Nothing. Control Everything.**\n\n🔥 *Advanced Discord Management at Its Finest*')
             .addFields(
                 { 
-                    name: '💀 Enforcement Systems', 
-                    value: `• Advanced Warning Protocol
-                    • Instant Punishment Deployment
+                    name: '🛡️ Enforcement Arsenal', 
+                    value: `• Advanced Warning System
+                    • Auto-Escalation Protocol  
                     • Temporary Mute System
                     • Permanent Ban Hammer
                     • Shadow Moderation
@@ -38,13 +35,24 @@ module.exports = {
                 },
                 { 
                     name: '🎯 Control Systems', 
-                    value: `• Voice Verification Protocol
-                    • Reaction Role Assignment
-                    • Professional Ticket System
-                    • Giveaway Distribution
+                    value: `• Verification Management
+                    • Auto-Role Assignment
                     • Channel Lockdown
-                    • Message Purge Protocol
-                    • \`/verify\` \`/reactionroles\` \`/ticket\``,
+                    • Message Purging
+                    • Slowmode Control
+                    • Permission Override
+                    • \`/verify\` \`/lockdown\` \`/purge\``,
+                    inline: false 
+                },
+                { 
+                    name: '🎫 Advanced Ticketing', 
+                    value: `• Category-Based Organization
+                    • Staff Assignment System
+                    • Rating & Feedback
+                    • Transcript Generation
+                    • Auto-Close Timers
+                    • Performance Analytics
+                    • \`/ticket\` commands`,
                     inline: false 
                 },
                 { 
@@ -65,14 +73,7 @@ module.exports = {
                     • Fun Facts Database
                     • \`/fun\` commands`,
                     inline: false 
-                }
-            )
-            .setFooter({ text: `NUMB SYSTEM v2.0 • By MrSmith • Feel Nothing. Control Everything.` })
-            .setTimestamp();
-        
-        await interaction.reply({ embeds: [embed] });
-    }
-};
+                },
                 { 
                     name: '🎉 Giveaway System', 
                     value: `• Timed giveaways with auto-draw
@@ -85,44 +86,16 @@ module.exports = {
                     inline: false 
                 },
                 { 
-                    name: '🎭 Reaction Roles', 
-                    value: `• Pre-configured panels (colors, games, notifications, pronouns)
-                    • Button or dropdown styles
-                    • Exclusive roles (one from group)
-                    • Multiple selection support
-                    • Config-based setup
-                    • \`/reactionroles create\` to setup!`,
-                    inline: false 
-                },
-                { 
-                    name: '📊 Advanced Analytics', 
-                    value: `• Activity heatmaps
-                    • Channel statistics
-                    • Member engagement tracking
-                    • Growth analytics
-                    • Raid detection system
-                    • \`/analytics\` to view!`,
-                    inline: false 
-                },
-                { 
-                    name: '🤫 Confession System', 
-                    value: `• Anonymous confessions
-                    • Numbered for reference
-                    • Admin reveal capability
-                    • \`/confess submit\` to use!`,
-                    inline: false 
-                },
-                { 
-                    name: '🎮 Fun Commands', 
-                    value: `• Random facts & jokes
-                    • Inspirational quotes
-                    • Would You Rather game
-                    • Truth or Dare
-                    • \`/fun\` to play!`,
+                    name: '⚙️ Configuration', 
+                    value: `• Setup wizard
+                    • Configuration validation
+                    • Backup & restore
+                    • Feature toggles
+                    • \`/setup\` \`/backup\``,
                     inline: false 
                 }
             )
-            .setFooter({ text: `${getServerName()} • Bot Version 2.0.0` })
+            .setFooter({ text: `NUMB SYSTEM v2.0 • By MrSmith • Feel Nothing. Control Everything.` })
             .setTimestamp();
         
         await interaction.reply({ embeds: [embed] });

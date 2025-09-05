@@ -1,5 +1,6 @@
 const { SlashCommandBuilder, PermissionFlagsBits } = require('discord.js');
 const { logEvent } = require('../utils/logger');
+const config = require('../config');
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -24,10 +25,10 @@ module.exports = {
             return interaction.reply({ content: 'User not found!', ephemeral: true });
         }
         
-        const mutedRole = interaction.guild.roles.cache.get(process.env.MUTED_ROLE_ID);
+        const mutedRole = interaction.guild.roles.cache.get(config.roles.moderation.muted);
         
         if (!mutedRole) {
-            return interaction.reply({ content: 'Muted role not found! Please configure it in .env', ephemeral: true });
+            return interaction.reply({ content: 'Muted role not found! Please configure it in config.js', ephemeral: true });
         }
         
         if (!member.roles.cache.has(mutedRole.id)) {

@@ -71,3 +71,4 @@ docs/drafts/
 # Bot specific
 analytics.sqlite
 giveaways.sqlite
+FIX_CRASHES.js

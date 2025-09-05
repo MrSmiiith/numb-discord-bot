@@ -21,11 +21,11 @@ module.exports = {
             if (existingTicket) {
                 return interaction.reply({
                     content: `❌ You already have an open ticket! <#${existingTicket.channelId}>`,
-                    ephemeral: true
+                    flags: ['Ephemeral']
                 });
             }
 
-            await interaction.deferReply({ ephemeral: true });
+            await interaction.deferReply({ flags: ['Ephemeral'] });
             const lastTicket = await Ticket.findOne({
                 where: { guildId: interaction.guild.id },
                 order: [['ticketId', 'DESC']]
@@ -160,8 +160,7 @@ module.exports = {
             });
 
             await interaction.editReply({
-                content: `✅ Your ticket has been created: ${ticketChannel}`,
-                ephemeral: true
+                content: `✅ Your ticket has been created: ${ticketChannel}`
             });
 
             this.scheduleAutoClose(ticket, ticketChannel);
@@ -190,14 +189,14 @@ module.exports = {
         if (!ticket) {
             return interaction.reply({
                 content: '❌ This ticket is not open or does not exist!',
-                ephemeral: true
+                flags: ['Ephemeral']
             });
         }
 
         if (ticket.claimedBy) {
             return interaction.reply({
                 content: `❌ This ticket is already claimed by <@${ticket.claimedBy}>!`,
-                ephemeral: true
+                flags: ['Ephemeral']
             });
         }
 
@@ -208,7 +207,7 @@ module.exports = {
         if (!isStaff) {
             return interaction.reply({
                 content: '❌ Only staff members can claim tickets!',
-                ephemeral: true
+                flags: ['Ephemeral']
             });
         }
         ticket.claimedBy = interaction.user.id;
@@ -264,7 +263,7 @@ module.exports = {
         if (!isStaff && !isOwner) {
             return interaction.reply({
                 content: '❌ Only staff members or the ticket owner can close tickets!',
-                ephemeral: true
+                flags: ['Ephemeral']
             });
         }
 
@@ -339,7 +338,7 @@ module.exports = {
         if (!ticket) {
             return interaction.reply({
                 content: '❌ This is not a ticket channel!',
-                ephemeral: true
+                flags: ['Ephemeral']
             });
         }
 

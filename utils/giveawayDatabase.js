@@ -126,8 +126,9 @@ async function initGiveaways() {
     }
 }
 
-GiveawayEntry.addIndex(['giveawayId', 'userId'], { unique: true });
-Giveaway.addIndex(['guildId', 'ended']);
+// Indexes are now defined in the model options, not added separately
+// GiveawayEntry.addIndex(['giveawayId', 'userId'], { unique: true });
+// Giveaway.addIndex(['guildId', 'ended']);
 
 module.exports = {
     giveawayDb,

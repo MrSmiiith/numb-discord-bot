@@ -352,15 +352,6 @@ module.exports = {
 
         await interaction.editReply({ embeds: [embed] });
     },
-        let rating;
-        if (totalScore >= 80) rating = '⭐⭐⭐⭐⭐ Extremely Active';
-        else if (totalScore >= 60) rating = '⭐⭐⭐⭐ Very Active';
-        else if (totalScore >= 40) rating = '⭐⭐⭐ Active';
-        else if (totalScore >= 20) rating = '⭐⭐ Moderate';
-        else rating = '⭐ Low Activity';
-
-        return `${totalScore}/100\n${rating}`;
-    },
 
     getRaidRecommendation(severity) {
         switch(severity) {

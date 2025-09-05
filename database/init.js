@@ -162,6 +162,7 @@ const Ticket = sequelize.define('Ticket', {
     ticketId: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
+        primaryKey: true,
         unique: true
     },
     channelId: {
@@ -229,6 +230,8 @@ const Ticket = sequelize.define('Ticket', {
         type: DataTypes.DATE,
         defaultValue: DataTypes.NOW
     }
+}, {
+    id: false  // Disable the default id field since we're using ticketId as primary key
 });
 
 const TicketMessage = sequelize.define('TicketMessage', {

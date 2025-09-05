@@ -17,7 +17,7 @@ module.exports = {
         client.ui = ui;
 
         ui.displayBanner();
-        ui.displayInfo(client);
+        ui.log('info', `Logged in as ${client.user.tag}! Serving ${client.guilds.cache.size} guilds with ${client.users.cache.size} users.`);
 
         ui.registerModule('Bot Activity', 'setting');
         client.user.setActivity('the community | /help', { type: ActivityType.Watching });
@@ -61,13 +61,12 @@ module.exports = {
         ui.registerModule('Auto-Moderation', 'ready', '🛡️');
         ui.registerModule('Database', 'ready', '💾');
 
-        ui.showCommands(client.commands);
-
-        ui.displayStats();
-
-        ui.displayReady(client);
-
+        ui.log('info', `Bot loaded with ${client.commands.size} commands and ${client.guilds.cache.size} guilds`);
         ui.log('info', `Server Name: ${config.branding.serverName}`);
+        ui.log('success', '🎉 NUMB SYSTEM is fully operational!');
+
+        const chalk = require('chalk');
+        console.log(chalk.green.bold('\n🎉 NUMB SYSTEM READY - Feel Nothing. Control Everything. 🎉\n'));
         ui.log('info', `Theme Color: ${config.branding.embedColor}`);
         ui.log('success', 'All systems operational!');
     },

@@ -1,6 +1,7 @@
 const { Events, EmbedBuilder } = require('discord.js');
 const { logEvent } = require('../utils/logger');
 const { getEmbedColor, getServerName } = require('../utils/branding');
+const config = require('../config');
 
 const dashboardMessages = new Map();
 
@@ -18,8 +19,8 @@ module.exports = {
                 return interaction.reply({ content: 'User not found! They may have left the server.', ephemeral: true });
             }
 
-            const staffRole = interaction.guild.roles.cache.get(process.env.STAFF_ROLE_ID);
-            const adminRole = interaction.guild.roles.cache.get(process.env.ADMIN_ROLE_ID);
+            const staffRole = interaction.guild.roles.cache.get(config.roles.staff.moderator);
+            const adminRole = interaction.guild.roles.cache.get(config.roles.staff.admin);
 
             if (!interaction.member.roles.cache.has(staffRole?.id) && !interaction.member.roles.cache.has(adminRole?.id)) {
                 return interaction.reply({
@@ -27,14 +28,14 @@ module.exports = {
                     ephemeral: true
                 });
             }
-            const unverifiedRole = interaction.guild.roles.cache.get(process.env.UNVERIFIED_ROLE_ID);
-            const verifiedRole = interaction.guild.roles.cache.get(process.env.VERIFIED_ROLE_ID);
-            const boyRole = interaction.guild.roles.cache.get(process.env.BOY_ROLE_ID);
-            const girlRole = interaction.guild.roles.cache.get(process.env.GIRL_ROLE_ID);
+            const unverifiedRole = interaction.guild.roles.cache.get(config.roles.verification.unverified);
+            const verifiedRole = interaction.guild.roles.cache.get(config.roles.verification.verified);
+            const boyRole = interaction.guild.roles.cache.get(config.roles.gender.boy);
+            const girlRole = interaction.guild.roles.cache.get(config.roles.gender.girl);
 
             if (!unverifiedRole || !verifiedRole || !boyRole || !girlRole) {
                 return interaction.reply({
-                    content: '⚠️ Verification roles not properly configured! Please check .env file.',
+                    content: '⚠️ Verification roles not properly configured! Please check config.js file.',
                     ephemeral: true
                 });
             }
@@ -111,8 +112,8 @@ module.exports = {
             const action = interaction.values[0];
             const member = interaction.guild.members.cache.get(userId);
 
-            const staffRole = interaction.guild.roles.cache.get(process.env.STAFF_ROLE_ID);
-            const adminRole = interaction.guild.roles.cache.get(process.env.ADMIN_ROLE_ID);
+            const staffRole = interaction.guild.roles.cache.get(config.roles.staff.moderator);
+            const adminRole = interaction.guild.roles.cache.get(config.roles.staff.admin);
 
             if (!interaction.member.roles.cache.has(staffRole?.id) && !interaction.member.roles.cache.has(adminRole?.id)) {
                 return interaction.reply({

@@ -1,6 +1,7 @@
 const { EmbedBuilder } = require('discord.js');
 const { Log, VoiceLog } = require('../database/init');
 const { getEmbedColor, getServerName } = require('../utils/branding');
+const config = require('../config');
 
 async function logEvent(guild, type, data) {
     try {
@@ -21,7 +22,7 @@ async function logEvent(guild, type, data) {
         console.error('Failed to save log to database:', error);
     }
 
-    const logChannel = guild.channels.cache.get(process.env.LOG_CHANNEL_ID);
+    const logChannel = guild.channels.cache.get(config.channels.logs.general);
     if (!logChannel) return;
 
     const embed = new EmbedBuilder()
@@ -174,7 +175,7 @@ async function logVoiceEvent(guild, userId, action, data) {
         console.error('Failed to save voice log to database:', error);
     }
 
-    const voiceLogChannel = guild.channels.cache.get(process.env.VOICE_LOG_CHANNEL_ID);
+    const voiceLogChannel = guild.channels.cache.get(config.channels.logs.voice);
     if (!voiceLogChannel) return;
 
     const member = guild.members.cache.get(userId);
